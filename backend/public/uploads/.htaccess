@@ -1,0 +1,26 @@
+# Uploaded files must never be executable, regardless of what extension a
+# stored file ends up with. This is defense-in-depth on top of the extension
+# allow-list and real-MIME check enforced in UploadController — belt and
+# braces in case a misconfigured handler ever maps another extension to PHP.
+
+# Apache 2.4+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(php|phtml|php[0-9]?|phar|pht)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+# Apache 2.2 fallback
+<IfModule !mod_authz_core.c>
+    <FilesMatch "\.(php|phtml|php[0-9]?|phar|pht)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>

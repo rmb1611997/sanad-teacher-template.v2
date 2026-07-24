@@ -1,0 +1,14 @@
+# Backend — WordPress secrets (DB credentials, auth salts, JWT secret fallback)
+# never belong in git; every value is meant to be environment/server-specific.
+backend/wp-config.php
+
+# Backend — Wordfence runtime state (contains a generated authKey secret plus
+# local absolute paths); it's regenerated automatically, not source code.
+backend/wp-content/wflogs/
+
+# Environment files anywhere in the repo (defense in depth — frontend/.gitignore
+# already covers the frontend's own .env files specifically).
+.env
+.env.local
+.env.production
+.env.*.local
